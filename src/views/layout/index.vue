@@ -13,7 +13,7 @@
               'el-icon-s-unfold': !isCollapse
           }"
              @click="isCollapse = !isCollapse"></i>
-          <span>江苏传智播客科技教育有限公司</span>
+          <span>牛逼的管理系统</span>
         </div>
         <el-dropdown>
           <div class="avatar-wrap">
@@ -24,7 +24,7 @@
           </div>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>设置</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click.native="onLogout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -54,6 +54,18 @@
           console.log(value)
           this.user = value.data.data;
         });
+      },
+
+      onLogout(){
+        this.$confirm('确认退出吗？','退出提示',{
+          confirmButtonText:'确认',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(()=>{
+          window.localStorage.removeItem('user')
+          this.$router.push('/login')
+        }).catch(()=>{
+        })
       }
     },
     created () {
